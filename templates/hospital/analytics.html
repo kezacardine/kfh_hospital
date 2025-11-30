@@ -1,0 +1,114 @@
+{% extends 'hospital/base.html' %}
+
+{% block title %}MediPlot Analytics - King Faisal Hospital{% endblock %}
+
+{% block content %}
+<div class="hero-section" style="padding: 40px 0;">
+    <div class="container">
+        <h1><i class="fas fa-chart-line"></i> MediPlot Analytics Dashboard</h1>
+        <p class="lead">Comprehensive patient health visualization and analysis</p>
+    </div>
+</div>
+
+<div class="container mt-4 mb-5">
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="stat-card" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white;">
+                <div class="text-center">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
+                    <h3 class="mt-2">{{ alerts.high_hr }}</h3>
+                    <p class="mb-0">High Heart Rate Cases</p>
+                    <small>Heart Rate > 100 bpm</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card" style="background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); color: white;">
+                <div class="text-center">
+                    <i class="fas fa-temperature-high" style="font-size: 3rem;"></i>
+                    <h3 class="mt-2">{{ alerts.fever }}</h3>
+                    <p class="mb-0">Fever Cases</p>
+                    <small>Temperature > 37.5°C</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card" style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%); color: white;">
+                <div class="text-center">
+                    <i class="fas fa-heartbeat" style="font-size: 3rem;"></i>
+                    <h3 class="mt-2">{{ alerts.hypertension }}</h3>
+                    <p class="mb-0">Hypertension Cases</p>
+                    <small>BP > 140/90 mmHg</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-heart"></i> Heart Rate Distribution</h5>
+                <img src="data:image/png;base64,{{ charts.hr_dist }}" style="width: 100%; height: auto;" alt="Heart Rate Distribution">
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-thermometer-half"></i> Temperature Density Plot</h5>
+                <img src="data:image/png;base64,{{ charts.temp_dist }}" style="width: 100%; height: auto;" alt="Temperature Distribution">
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-heartbeat"></i> Blood Pressure Distribution</h5>
+                <img src="data:image/png;base64,{{ charts.bp_violin }}" style="width: 100%; height: auto;" alt="Blood Pressure">
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-chart-scatter"></i> Heart Rate vs Systolic BP</h5>
+                <img src="data:image/png;base64,{{ charts.hr_bp_scatter }}" style="width: 100%; height: auto;" alt="HR vs BP">
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-chart-line"></i> Heart Rate Trend Over Time</h5>
+                <img src="data:image/png;base64,{{ charts.hr_trend }}" style="width: 100%; height: auto;" alt="HR Trend">
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-project-diagram"></i> Correlation Matrix</h5>
+                <img src="data:image/png;base64,{{ charts.correlation }}" style="width: 100%; height: auto;" alt="Correlation">
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="stat-card">
+                <h5><i class="fas fa-table"></i> Summary Statistics</h5>
+                <div class="table-responsive">
+                    {{ summary_stats|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <a href="{% url 'hospital:dashboard' %}" class="btn btn-primary-custom">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <button onclick="window.print()" class="btn btn-outline-primary">
+                <i class="fas fa-print"></i> Print Report
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

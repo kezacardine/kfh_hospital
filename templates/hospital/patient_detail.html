@@ -1,0 +1,133 @@
+{% extends 'hospital/base.html' %}
+
+{% block title %}{{ patient.patient_id }} - Patient Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2><i class="fas fa-user"></i> Patient Details: {{ patient.patient_id }}</h2>
+            <span class="badge bg-{{ patient.get_latest_risk_color }}" style="font-size: 1.2rem; padding: 10px 20px;">
+                {{ patient.get_latest_risk_level }}
+            </span>
+        </div>
+        <hr>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Name:</strong> {{ patient.first_name }} {{ patient.last_name }}</p>
+                <p><strong>Date of Birth:</strong> {{ patient.date_of_birth }}</p>
+                <p><strong>Gender:</strong> {{ patient.get_gender_display }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Phone:</strong> {{ patient.phone }}</p>
+                <p><strong>Email:</strong> {{ patient.email|default:"Not provided" }}</p>
+                <p><strong>Address:</strong> {{ patient.address }}</p>
+            </div>
+        </div>
+        
+        <h4 class="mt-4"><i class="fas fa-heartbeat"></i> Vital Signs History</h4>
+        
+        {% if vital_signs %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead style="background: #5ca3ff; color: white;">
+                    <tr>
+                        <th>Date</th>
+                        <th>Heart Rate</th>
+                        <th>Temperature</th>
+                        <th>Blood Pressure</th>
+                        <th>Risk Level</th>
+                        <th>Risk Score</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vs in vital_signs %}
+                    <tr>
+                        <td>{{ vs.recorded_at|date:"M d, Y H:i" }}</td>
+                        <td>
+                            {{ vs.heart_rate|floatformat:0 }} bpm
+                            {% if vs.high_hr %}
+                                <i class="fas fa-exclamation-triangle text-danger"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ vs.temperature|floatformat:1 }}°C
+                            {% if vs.fever %}
+                                <i class="fas fa-temperature-high text-warning"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ vs.systolic_bp|floatformat:0 }}/{{ vs.diastolic_bp|floatformat:0 }} mmHg
+                            {% if vs.hypertension %}
+                                <i class="fas fa-heart text-danger"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge bg-{% if vs.risk_level == 'LOW' %}success{% elif vs.risk_level == 'MEDIUM' %}warning{% else %}danger{% endif %}">
+                                {{ vs.get_risk_level_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <strong>{{ vs.risk_score }}/100</strong>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#riskModal{{ vs.id }}">
+                                <i class="fas fa-info-circle"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    
+                    <!-- Risk Details Modal -->
+                    <div class="modal fade" id="riskModal{{ vs.id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-{% if vs.risk_level == 'LOW' %}success{% elif vs.risk_level == 'MEDIUM' %}warning{% else %}danger{% endif %} text-white">
+                                    <h5 class="modal-title">Risk Assessment Details</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h6><strong>Risk Level:</strong> {{ vs.get_risk_level_display }}</h6>
+                                    <h6><strong>Risk Score:</strong> {{ vs.risk_score }}/100</h6>
+                                    <hr>
+                                    <h6><strong>Risk Factors:</strong></h6>
+                                    <ul>
+                                        {% for factor in vs.get_risk_factors %}
+                                        <li>{{ factor }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <hr>
+                                    <h6><strong>Vital Signs:</strong></h6>
+                                    <p>Heart Rate: {{ vs.heart_rate|floatformat:0 }} bpm</p>
+                                    <p>Temperature: {{ vs.temperature|floatformat:1 }}°C</p>
+                                    <p>Blood Pressure: {{ vs.systolic_bp|floatformat:0 }}/{{ vs.diastolic_bp|floatformat:0 }} mmHg</p>
+                                    <p>Recorded: {{ vs.recorded_at|date:"M d, Y H:i" }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> No vital signs recorded for this patient yet.
+        </div>
+        {% endif %}
+        
+        <div class="mt-4">
+            <a href="{% url 'hospital:dashboard' %}" class="btn btn-primary-custom">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <a href="{% url 'admin:hospital_vitalsign_add' %}?patient={{ patient.id }}" class="btn" style="background: #5ca3ff; color: white;">
+                <i class="fas fa-plus"></i> Add Vital Signs
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

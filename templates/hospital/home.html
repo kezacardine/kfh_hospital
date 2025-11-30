@@ -1,0 +1,387 @@
+{% extends 'hospital/base.html' %}
+{% load static %}
+
+{% block title %}King Faisal Hospital Rwanda - Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section-main {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #0066cc 0%, #003366 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .doctor-image {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 50%;
+        object-fit: cover;
+        object-position: center;
+        opacity: 0.95;
+    }
+    
+    .hero-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 70%;
+        background: linear-gradient(90deg, rgba(0,51,102,1) 0%, rgba(0,102,204,0.98) 50%, transparent 100%);
+        z-index: 1;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 300;
+        letter-spacing: 3px;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+        line-height: 1.9;
+        margin-bottom: 40px;
+        font-weight: 300;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        max-width: 700px;
+    }
+    
+    .btn-light-blue {
+        background: #5ca3ff;
+        color: white;
+        padding: 18px 45px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 15px rgba(92,163,255,0.4);
+    }
+    
+    .btn-light-blue:hover {
+        background: #4a92ee;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(92,163,255,0.5);
+        color: white;
+    }
+    
+    .btn-white-outline {
+        background: white;
+        color: #0066cc;
+        padding: 18px 45px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: 2px solid white;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-left: 20px;
+    }
+    
+    .btn-white-outline:hover {
+        background: transparent;
+        color: white;
+        border-color: white;
+        transform: translateY(-3px);
+    }
+    
+    .service-card-modern {
+        background: white;
+        border-radius: 10px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        transition: all 0.3s;
+        height: 100%;
+        border-top: 4px solid #5ca3ff;
+    }
+    
+    .service-card-modern:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    
+    .service-card-modern .icon-wrapper {
+        font-size: 4rem;
+        margin-bottom: 25px;
+        color: #5ca3ff;
+    }
+    
+    .service-card-modern h4 {
+        color: #003366;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+    }
+    
+    .service-card-modern p {
+        color: #666;
+        line-height: 1.6;
+    }
+    
+    .service-card-modern .btn-action {
+        background: #5ca3ff;
+        color: white;
+        padding: 10px 30px;
+        border-radius: 6px;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s;
+    }
+    
+    .service-card-modern .btn-action:hover {
+        background: #4a92ee;
+        transform: translateY(-2px);
+    }
+    
+    .stats-section {
+        background: #f8f9fa;
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        color: #003366;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    
+    .section-subtitle {
+        color: #666;
+        font-size: 1.2rem;
+        margin-bottom: 50px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Doctor Image on Right -->
+<section class="hero-section-main">
+    <img src="/static/images/doctor-bg.jpg" alt="Doctor" class="doctor-image">
+    <div class="hero-overlay"></div>
+    
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="hero-title">Wide Range of Medical Services</h1>
+                <p class="hero-subtitle">
+                    We take pride in providing a diverse range of medical services to meet the needs of your entire family.
+                    King Faisal Hospital Rwanda is committed to delivering accessible, affordable, and highest-quality care.
+                </p>
+                <div class="mt-4">
+                    <a href="#services" class="btn btn-light-blue">
+                        <i class="fas fa-stethoscope"></i> Our Services
+                    </a>
+                    <a href="{% url 'hospital:login' %}" class="btn btn-white-outline">
+                        <i class="fas fa-user-md"></i> Healthcare Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="section-title">Welcome to King Faisal Hospital Rwanda</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: #555;">
+                    King Faisal Hospital Rwanda is a multi-specialty quaternary Hospital with a mandate to provide 
+                    specialized health care in East and Central Africa. For the last 22 years, we have concentrated 
+                    on clinical excellence, efficiency, and quality in health service delivery.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: #555;">
+                    With our state-of-the-art amenities, equipment, and well-trained staff, we are committed to 
+                    delivering accessible, affordable, and highest-quality care to our patients.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <i class="fas fa-hospital-alt" style="font-size: 250px; color: rgba(0,102,204,0.1);"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Cards -->
+<section id="services" class="py-5" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our Healthcare Services</h2>
+            <p class="section-subtitle">Comprehensive medical care for all your health needs</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <h4>Patient Portal</h4>
+                    <p>Login to Patient portal to view your results or Connect with your Doctor.</p>
+                    <a href="{% url 'hospital:login' %}" class="btn btn-action mt-3">
+                        Access Portal
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern" style="border-top-color: #dc3545;">
+                    <div class="icon-wrapper" style="color: #dc3545;">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h4>Emergency Support</h4>
+                    <p>We are open 24 hours a day, 365 days a year, to attend to all emergency cases.</p>
+                    <a href="tel:+250788123456" class="btn btn-action mt-3" style="background: #dc3545;">
+                        Call Emergency
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern" style="border-top-color: #00a651;">
+                    <div class="icon-wrapper" style="color: #00a651;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Consultation Hours</h4>
+                    <p>
+                        <strong>Monday – Friday:</strong> 7:00AM – 5:00PM<br>
+                        <strong>Saturday:</strong> 8:00AM – 5:00PM<br>
+                        <strong>Sunday:</strong> 8:00AM – 5:00PM
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our Healthcare Excellence</h2>
+            <p class="section-subtitle">Trusted by thousands across East and Central Africa</p>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="stat-card text-center">
+                    <div style="font-size: 3rem; color: #5ca3ff; margin-bottom: 15px;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #5ca3ff;">{{ total_patients }}</div>
+                    <div style="color: #666; font-size: 1.1rem;">Registered Patients</div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card text-center">
+                    <div style="font-size: 3rem; color: #00a651; margin-bottom: 15px;">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #00a651;">{{ total_records }}</div>
+                    <div style="color: #666; font-size: 1.1rem;">Health Records</div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card text-center">
+                    <div style="font-size: 3rem; color: #ffc107; margin-bottom: 15px;">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #ffc107;">22+</div>
+                    <div style="color: #666; font-size: 1.1rem;">Years of Excellence</div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card text-center">
+                    <div style="font-size: 3rem; color: #dc3545; margin-bottom: 15px;">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #dc3545;">24/7</div>
+                    <div style="color: #666; font-size: 1.1rem;">Emergency Care</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Medical Services Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Specialized Medical Departments</h2>
+            <p class="section-subtitle">Expert care across multiple specialties</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern">
+                    <div class="icon-wrapper"><i class="fas fa-heart"></i></div>
+                    <h4>Cardiology</h4>
+                    <p>Advanced cardiac care with experienced cardiologists and modern equipment.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern">
+                    <div class="icon-wrapper"><i class="fas fa-brain"></i></div>
+                    <h4>Neurology</h4>
+                    <p>Comprehensive neurological services for brain and nervous system disorders.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern">
+                    <div class="icon-wrapper"><i class="fas fa-x-ray"></i></div>
+                    <h4>Radiology</h4>
+                    <p>State-of-the-art imaging services including MRI, CT scans, and ultrasound.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern">
+                    <div class="icon-wrapper"><i class="fas fa-procedures"></i></div>
+                    <h4>Surgery</h4>
+                    <p>Expert surgical teams performing complex procedures with precision.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern">
+                    <div class="icon-wrapper"><i class="fas fa-microscope"></i></div>
+                    <h4>Laboratory</h4>
+                    <p>Comprehensive diagnostic laboratory services with accurate results.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card-modern">
+                    <div class="icon-wrapper"><i class="fas fa-baby"></i></div>
+                    <h4>Maternity</h4>
+                    <p>Complete maternal and child health services with experienced specialists.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, #003366 0%, #5ca3ff 100%); color: white;">
+    <div class="container text-center">
+        <h2 class="display-5 mb-4">Healthcare Professional Portal</h2>
+        <p class="lead mb-4">Access patient records, analytics dashboard, and management tools</p>
+        <a href="{% url 'hospital:login' %}" class="btn btn-light btn-lg" style="padding: 15px 50px; font-size: 1.2rem;">
+            <i class="fas fa-sign-in-alt"></i> Login to Portal
+        </a>
+    </div>
+</section>
+{% endblock %}

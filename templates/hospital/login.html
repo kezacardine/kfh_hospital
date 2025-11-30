@@ -1,0 +1,107 @@
+{% extends 'hospital/base.html' %}
+
+{% block title %}Login - King Faisal Hospital{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(0,51,102,0.05) 0%, rgba(0,102,204,0.05) 100%);
+    }
+    
+    .login-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        max-width: 900px;
+        width: 100%;
+    }
+    
+    .login-left {
+        background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+        color: white;
+        padding: 60px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .login-left i {
+        font-size: 100px;
+        margin-bottom: 30px;
+    }
+    
+    .login-right {
+        padding: 60px 40px;
+    }
+    
+    .btn-login {
+        background: linear-gradient(135deg, #0066cc 0%, #003366 100%);
+        border: none;
+        padding: 12px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="container">
+        <div class="login-card">
+            <div class="row g-0">
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="login-left">
+                        <i class="fas fa-hospital"></i>
+                        <h2>King Faisal Hospital</h2>
+                        <p class="lead">Healthcare Management Portal</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="login-right">
+                        <h3 style="color: #003366; font-weight: bold;">Welcome Back!</h3>
+                        <p class="text-muted">Please login to access the healthcare portal</p>
+                        
+                        <form method="post" action="{% url 'hospital:login' %}">
+                            {% csrf_token %}
+                            
+                            <div class="mb-4">
+                                <label for="username" class="form-label">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required autofocus>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-login w-100">
+                                <i class="fas fa-sign-in-alt"></i> Login to Portal
+                            </button>
+                        </form>
+                        
+                        <div class="text-center mt-4">
+                            <a href="{% url 'hospital:home' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
