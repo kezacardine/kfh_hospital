@@ -1,1 +1,2 @@
-web: gunicorn kfh_project.wsgi 
+web: gunicorn kfh_project.kfh_project.wsgi
+
