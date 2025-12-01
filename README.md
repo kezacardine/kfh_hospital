@@ -210,4 +210,4 @@ For support, please open an issue in the GitHub repository or contact the develo
 - Use a production-grade database (PostgreSQL)
 - Implement proper security measures
 - Set up HTTPS
-- Configure proper backup systems
+- Configure proper backup 
