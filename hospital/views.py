@@ -231,4 +231,13 @@ def analytics(request):
     
     # ---------------- Chart 6: Correlation Heatmap ----------------
     fig6, ax6 = plt.subplots(figsize=(8, 6))
-    corr_matrix = df[["heart_rate", " 
+    corr_matrix = df[["heart_rate", "temperature", "systolic_bp", "diastolic_bp"]].corr()
+    sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", linewidths=0.5, ax=ax6)
+    ax6.set_title("Correlation Heatmap", fontweight='bold')
+    charts['corr_heatmap'] = fig_to_base64(fig6)
+    plt.close(fig6)
+
+    # Render template with charts
+    return render(request, 'hospital/analytics.html', {
+        'charts': charts
+    })
