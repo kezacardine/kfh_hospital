@@ -10,6 +10,12 @@ from django.contrib import messages
 from django.db.models import Avg, Count, Q
 # Import models defined in this app
 from .models import Patient, VitalSign
+# HttpResponse allows sending plain text responses in Django views
+from django.http import HttpResponse
+# Import Patient model to access patient data
+from .models import Patient
+# Import date utility to calculate patient age
+from datetime import date
 
 # Data analysis and visualization libraries
 import pandas as pd
@@ -32,6 +38,33 @@ def home(request):
     }
     # Render home page with counts
     return render(request, 'hospital/home.html', context)
+
+# ---------------- COUNT ELDERLY PATIENTS ----------------
+def count_elderly_patients():
+    """
+    Return the number of elderly patients (60+ years old).
+    This function was added by Celine as part of project contribution.
+    """
+    count = 0
+    for patient in Patient.objects.all():
+        # Calculate age based on birth year
+        age = date.today().year - patient.date_of_birth.year
+        if age >= 60:
+            count += 1
+    return count
+
+
+# --------------- DEMO ELDERLY COUNT VIEW ---------------
+def elderly_count_view(request):
+    """
+    This view displays the number of elderly patients (60+ years).
+    Added by Celine to demonstrate the age-analysis feature.
+    """
+    count = count_elderly_patients()  # Calling function
+    return HttpResponse(f"Number of patients aged 60 and above: {count}")
+# --------------------------------------------------------
+
+
 
 
 # ---------------- LOGIN VIEW ----------------
