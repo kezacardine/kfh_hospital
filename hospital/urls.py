@@ -11,5 +11,4 @@ urlpatterns = [
     path('analytics/', views.analytics, name='analytics'),
     path('patient/<str:patient_id>/', views.patient_detail, name='patient_detail'),
     path('generate-sample-data/', views.generate_sample_data, name='generate_sample_data'),
-    path('elderly-count/', views.elderly_count_view, name='elderly_count'),
 ]
