@@ -108,7 +108,7 @@ def dashboard(request):
     return render(request, 'hospital/dashboard.html', context)
 
 
-# ---------------- ANALYTICS VIEW ----------------
+# ---------------- ANALYTICS VIEW --------------
 @login_required
 def analytics(request):
     # Fetch all vital signs with related patient info
