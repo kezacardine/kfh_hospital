@@ -602,6 +602,7 @@ Contributions are welcome and greatly appreciated! Here's how you can contribute
 ### Contributors
 
 - **Celine** - *Elderly patient counting feature*
+- **Leiss Uwase** - *Enhanced Vitalsign admin readability  for better audditing*
 
 ---
 
