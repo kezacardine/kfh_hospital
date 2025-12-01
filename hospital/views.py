@@ -231,4 +231,4 @@ def analytics(request):
     
     # ---------------- Chart 6: Correlation Heatmap ----------------
     fig6, ax6 = plt.subplots(figsize=(8, 6))
-    corr_matrix = df[["heart_rate", "
+    corr_matrix = df[["heart_rate", " 
