@@ -115,6 +115,15 @@ def dashboard(request):
     fever_count = recent_vitals.filter(temperature__gt=37.5).count()
     hypertension_count = recent_vitals.filter(Q(systolic_bp__gt=140) | Q(diastolic_bp__gt=90)).count()
     
+    # Count critical patients (your contribution)
+    critical_count = recent_vitals.filter(
+        heart_rate__gt=100,
+        temperature__gt=37.5
+    ).filter(Q(systolic_bp__gt=140) | Q(diastolic_bp__gt=90)).count()
+    
+    # Count elderly patients (your contribution)
+    elderly_count = count_elderly_patients()
+    
     # Get latest 10 patients
     recent_patients = Patient.objects.all()[:10]
     
@@ -135,6 +144,9 @@ def dashboard(request):
         'hypertension_count': hypertension_count,
         'recent_patients': recent_patients,
         'avg_vitals': avg_vitals,
+        # Added your contributions here
+        'critical_count': critical_count,
+        'elderly_count': elderly_count,
     }
     return render(request, 'hospital/dashboard.html', context)
 
