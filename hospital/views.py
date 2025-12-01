@@ -12,8 +12,6 @@ from django.db.models import Avg, Count, Q
 from .models import Patient, VitalSign
 # HttpResponse allows sending plain text responses in Django views
 from django.http import HttpResponse
-# Import Patient model to access patient data
-from .models import Patient
 # Import date utility to calculate patient age
 from datetime import date
 
