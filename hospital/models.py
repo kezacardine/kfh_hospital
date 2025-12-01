@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 class Patient(models.Model):
+    """
+    Represents a patient record in the hospital system. 
+     It Stores demographic information and provides specific methods for accessing 
+    the patient's most recent vital sign risk assessment.
+    """
     GENDER_CHOICES = [
         ('M', 'Male'),
         ('F', 'Female'),
@@ -20,17 +25,26 @@ class Patient(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """Returns the patient's ID and full name for easy identification."""
+        
         return f"{self.patient_id} - {self.first_name} {self.last_name}"
 
     def get_latest_risk_level(self):
-        """Get the risk level from the most recent vital signs"""
+        """
+        Retrieves the calculated risk level (e.g., 'Low Risk', 'Medium Risk')
+        from the patient's most recently recorded VitalSign record.
+        """
         latest_vital = self.vital_signs.first()
         if latest_vital:
             return latest_vital.get_risk_level_display()
         return "No Data"
     
+
     def get_latest_risk_color(self):
-        """Get color for risk level badge"""
+        """
+        Maps the latest risk level (LOW/MEDIUM/HIGH) to a corresponding
+        Bootstrap color class (success/warning/danger) for front-end badges.
+        """
         latest_vital = self.vital_signs.first()
         if latest_vital:
             risk = latest_vital.risk_level
@@ -42,6 +56,10 @@ class Patient(models.Model):
         ordering = ['-created_at']
 
 class VitalSign(models.Model):
+    """
+    Records a set of physiological measurements for a patient at a specific time.
+    Risk score and level are auto-calculated and saved upon instance creation.
+    """ 
     RISK_CHOICES = [
         ('LOW', 'Low Risk'),
         ('MEDIUM', 'Medium Risk'),
@@ -127,7 +145,11 @@ class VitalSign(models.Model):
             return 'HIGH'
 
     def get_risk_factors(self):
-        """Return list of specific risk factors"""
+        """
+        Return a list of specific vital sign abnormalities (risk factors) 
+        that contributed to the calculated risk score. This list is intended 
+        for display to clinical staff.
+        """
         factors = []
         
         if self.heart_rate < 60:
