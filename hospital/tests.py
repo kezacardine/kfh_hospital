@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Patient, Department, VitalSign
+from .models import Patient, Department, Vitalsign
 
 # Create your tests here.
 class SimpleTest(TestCase):
