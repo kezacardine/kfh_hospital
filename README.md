@@ -597,12 +597,12 @@ Contributions are welcome and greatly appreciated! Here's how you can contribute
 ## 👥 Authors
 
 - **kayi122** - *Initial work* - [@kezacardine](https://github.com/kezacardine)
-- **mbishflavien** - *Collaborator* - [@mbishflavien](https://github.com/mbishflavien)
 
 ### Contributors
 
 - **Celine** - *Elderly patient counting feature*
 - **Leiss Uwase** - *Enhanced Vitalsign admin readability  for better audditing*
+- **mbishflavien** - *Conducted user acceptance testing and bug fixes* 
 
 ---
 
